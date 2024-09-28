@@ -24,7 +24,7 @@ class Breed(models.Model):
     }
     name = models.CharField(max_length=100)
     size = models.CharField(max_length=5, choices=SIZES)
-    friendliness
+    friendliness = "test"
     trainability
     sheddingamount
     exerciseneeds
