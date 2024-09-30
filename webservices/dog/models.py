@@ -4,18 +4,18 @@ from django.db import models
 
 class Breed(models.Model):
     SIZES = {
-        "Tiny",
-        "Small",
-        "Medium",
-        "Large"
+        (1, "Tiny"),
+        (2,"Small"),
+        (3, "Medium"),
+        (4, "Large")
     }
     
     RATINGS = {
-        1,
-        2,
-        3,
-        4,
-        5
+        (1,"1"),
+        (2,"2"),
+        (3,"3"),
+        (4,"4"),
+        (5,"5")
     }
     
     name = models.CharField(max_length=100)
