@@ -1,6 +1,34 @@
 from django.db import models
 
 # Create your models here.
+
+class Breed(models.Model):
+    SIZES = {
+        "Tiny",
+        "Small",
+        "Medium",
+        "Large"
+    }
+    
+    RATINGS = {
+        1,
+        2,
+        3,
+        4,
+        5
+    }
+    
+    name = models.CharField(max_length=100)
+    size = models.CharField(max_length=5, choices=SIZES)
+    friendliness = models.IntegerField(choices=RATINGS)
+    trainability = models.IntegerField(choices=RATINGS)
+    sheddingamount = models.IntegerField(choices=RATINGS)
+    exerciseneeds = models.IntegerField(choices=RATINGS)
+    
+    def __str__(self):
+        return self.name
+
+
 class Dog(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
@@ -15,16 +43,4 @@ class Dog(models.Model):
         return self.name
     
 
-class Breed(models.Model):
-    SIZES = {
-        "Tiny",
-        "Small",
-        "Medium",
-        "Large"
-    }
-    name = models.CharField(max_length=100)
-    size = models.CharField(max_length=5, choices=SIZES)
-    friendliness = "test"
-    trainability
-    sheddingamount
-    exerciseneeds
+
