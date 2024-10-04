@@ -30,5 +30,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #THis will include all the router urls created earlier
     path('', include(router.urls)),
+    
 ]
 
