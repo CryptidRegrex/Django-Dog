@@ -4,10 +4,10 @@ from django.db import models
 
 class Breed(models.Model):
     SIZES = {
-        (1, "Tiny"),
-        (2,"Small"),
-        (3, "Medium"),
-        (4, "Large")
+        ("Tiny", "Tiny"),
+        ("Small","Small"),
+        ("Medium", "Medium"),
+        ("Large", "Large")
     }
     
     RATINGS = {
@@ -19,7 +19,7 @@ class Breed(models.Model):
     }
     
     name = models.CharField(max_length=100)
-    size = models.CharField(max_length=5, choices=SIZES)
+    size = models.CharField(max_length=6, choices=SIZES)
     friendliness = models.IntegerField(choices=RATINGS)
     trainability = models.IntegerField(choices=RATINGS)
     sheddingamount = models.IntegerField(choices=RATINGS)

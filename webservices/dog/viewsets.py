@@ -22,6 +22,12 @@ class DogViewSet(ModelViewSet):
         #This essentially takes the data from the dog of which was found by primary key and returns the data in JSON format
         return Response(serializer.data)
     
+    def getAll(self, request):
+        #GET requewsts for retrieving everything
+        dogs = Dog.objects.all()
+        serializer = DogSerializer(dogs, many=True)
+        return Response(serializer.data)
+    
     def post(self, request): 
         #Handle all POST request by creating a new dog by getting the body data
         serializer = DogSerializer(data=request.data)
@@ -78,4 +84,47 @@ class BreedViewSet(ModelViewSet):
         except Breed.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = BreedSerializer(breed)
+        
+    def getAll(self, request):
+        #GET requewsts for retrieving everything
+        breeds = Breed.objects.all()
+        serializer = BreedSerializer(breeds, many=True)
+        return Response(serializer.data)
+        
+    def post(self, request):
+        #For the POST request and creating a new breed
+        serializer = BreedSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, pk=None):
+        #PUT requests for breed
+        try:
+            #If a primary key exists we will get it based on the primary key
+            breed = Breed.objects.get(pk=pk)
+        except Breed.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        #In this case we are going to get the data with our serializer
+        serializer = BreedSerializer(breed, data=request.data)
+        #If the data is valid we are going to save it
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk=None):
+        #Handle the delete of a breed
+        try:
+            #If a primary key exists we will get it based on the primary key
+            breed = Breed.objects.get(pk=pk)
+        except Breed.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        #Delete the breed if it's found
+        breed.delete()
+        #Telling the user the delete was successful
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
 
