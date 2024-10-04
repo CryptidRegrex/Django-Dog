@@ -19,12 +19,16 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from dog.viewsets import DogViewSet, BreedViewSet
 
+#This handles the creation of routes for viewsets based on the methods avaliable.
 router = DefaultRouter()
-router.register(r'dogs', DogViewSet)
-router.register(r'breeds', BreedViewSet)
+#Using this creates a base url prefix /dogs/
+router.register(r'dogs', DogViewSet, basename='dog')
+#Using this creates a base url prefix /breads/
+router.register(r'breeds', BreedViewSet, basename='breed')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #THis will include all the router urls created earlier
     path('', include(router.urls)),
 ]
 

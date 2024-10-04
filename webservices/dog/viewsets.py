@@ -61,7 +61,13 @@ class DogViewSet(viewsets.ViewSet):
     
 
     
-class BreedViewSet(viewsets.ModelViewSet):
-    queryset = Breed.objects.all()
-    serializer_class = BreedSerializer
+class BreedViewSet(viewsets.ViewSet):
+    #This will be used for get, post, put, and delete on breed
+    def get(self, request, pk=None):
+        #GET requests for retrieving a record based on their primary key
+        try:
+            breed = Breed.objects.get(pk=pk)
+        except Breed.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = BreedSerializer(breed)
 
