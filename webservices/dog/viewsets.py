@@ -3,9 +3,13 @@ from rest_framework import viewsets
 from .models import Dog, Breed
 from .serializers import DogSerializer, BreedSerializer
 from rest_framework import status
+from rest_framework.viewsets import ModelViewSet
 
-class DogViewSet(viewsets.ViewSet):
+class DogViewSet(ModelViewSet):
     # Viewset for creating, listing, updating, retriving, and deleting our dogs
+    
+    #Learned I need to specifiy the serializer class that needs to be used in the class.
+    serializer_class = DogSerializer
     
     def get(self, request, pk=None):
         #This gets dogs based on their primary key
@@ -61,8 +65,12 @@ class DogViewSet(viewsets.ViewSet):
     
 
     
-class BreedViewSet(viewsets.ViewSet):
+class BreedViewSet(ModelViewSet):
     #This will be used for get, post, put, and delete on breed
+    
+    #TO call the specific serializer class
+    serializer_class = BreedSerializer
+    
     def get(self, request, pk=None):
         #GET requests for retrieving a record based on their primary key
         try:
