@@ -3,7 +3,7 @@ services:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app  # Mount your app directory
+      - .:/app  # Mount the app directory
     ports:
       - "8000:8000"  # Map port 8000 of the host to port 8000 of the container
     depends_on:
